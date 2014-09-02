@@ -1,0 +1,11 @@
+{% set rsyslog = salt['grains.filter_by']({
+    'Debian': {
+        'package': 'rsyslog',
+        'service': 'rsyslog',
+        'config': '/etc/rsyslog.conf'
+    },
+    'RedHat': {
+        'package': 'rsyslog',
+        'service': 'rsyslog',
+    },
+}, merge=salt['pillar.get']('rsyslog:lookup')) %}
