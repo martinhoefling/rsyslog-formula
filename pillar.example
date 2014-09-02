@@ -2,4 +2,4 @@ rsyslog:
   target: 192.168.100.1 # omit if you do not want to forward logs
   enabletcp: true               # omit to disable listening on tcp port
   enableudp: true               # omit to disable listening on udp port
-  disableimkl: true             # omit to log kernel messages
+  imkllog: true             # omit to log kernel messages
