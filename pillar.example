@@ -3,3 +3,5 @@ rsyslog:
   listentcp: true               # omit to disable listening on tcp port
   listenudp: true               # omit to disable listening on udp port
   imkllog: true             # omit to log kernel messages
+  logbasepath: /mnt/logs        # base path for logs to be saved to
+

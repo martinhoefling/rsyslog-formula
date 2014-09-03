@@ -123,3 +123,8 @@ daemon.*;mail.*;\
 {% if config.target|default(false) %}
 *.* @{{ config.target }}
 {% endif %}
+
+{% if config.logbasepath|default(false) %}
+$template DailyPerHostLogs,"{{ config.logbasepath }}/%HOSTNAME%-%FROMHOST-IP%/%$YEAR%/%$MONTH%/%$DAY%.log"
+*.* -?DailyPerHostLogs
+{% endif %}
