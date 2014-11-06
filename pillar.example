@@ -7,4 +7,6 @@ rsyslog:
   imkllog: true                 # omit to log kernel messages
   logbasepath: /mnt/logs        # base path for logs to be saved to
                                 # also enables logging per host, per day
+  filemode: '0640'              # mode for created log files
+  dirmode: '0755'               # mode for dirs created in log file paths
 

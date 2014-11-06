@@ -41,8 +41,8 @@ $ActionFileDefaultTemplate RSYSLOG_TraditionalFileFormat
 #
 $FileOwner root
 $FileGroup adm
-$FileCreateMode 0640
-$DirCreateMode 0755
+$FileCreateMode {{ config.get('filemode', '0640') }}
+$DirCreateMode {{ config.get('dirmode', '0755') }}
 $Umask 0022
 
 #
