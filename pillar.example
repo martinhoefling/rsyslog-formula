@@ -10,3 +10,7 @@ rsyslog:
   filemode: '0640'              # mode for created log files
   dirmode: '0755'               # mode for dirs created in log file paths
 
+  custom:                       # put custom config files in /etc/rsyslog.d/
+    - 001_custom1.conf          # files must be reachable from path
+    - 002_custom2.conf          # salt://rsyslog/
+

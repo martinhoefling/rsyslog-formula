@@ -21,3 +21,12 @@ config_{{ rsyslog.config }}:
     - source: salt://rsyslog/files/rsyslog.conf.jinja
     - context:
       config: {{ salt['pillar.get']('rsyslog', {}) }}
+
+{% for filename in salt['pillar.get']('rsyslog:custom', {}) %}
+rsyslog_custom_{{filename}}:
+  file.managed:
+    - name: {{ rsyslog.custom_config_path }}/{{ filename }}
+    - source: salt://rsyslog/{{ filename }}
+    - watch_in: 
+      - service: {{ rsyslog.service }}
+{% endfor %}
