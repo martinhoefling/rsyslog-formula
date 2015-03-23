@@ -25,8 +25,11 @@ config_{{ rsyslog.config }}:
 {% for filename in salt['pillar.get']('rsyslog:custom', {}) %}
 rsyslog_custom_{{filename}}:
   file.managed:
-    - name: {{ rsyslog.custom_config_path }}/{{ filename }}
-    - source: salt://rsyslog/{{ filename }}
+    - name: {{ rsyslog.custom_config_path }}/{{ filename|replace(".jinja", "") }}
+    - source: salt://rsyslog/files/{{ filename }}
+    {% if filename.endswith('.jinja') %}
+    - template: jinja
+    {% endif %}
     - watch_in: 
       - service: {{ rsyslog.service }}
 {% endfor %}
