@@ -1,16 +1,16 @@
 rsyslog:
-  target: 192.168.100.1         # omit if you do not want to forward logs
-                                # NOTE: be careful using target and listen on
-                                # the same server, you can cause a loop
-  listentcp: true               # omit to disable listening on tcp port
-  listenudp: true               # omit to disable listening on udp port
-  imkllog: true                 # omit to log kernel messages
-  logbasepath: /mnt/logs        # base path for logs to be saved to
-                                # also enables logging per host, per day
-  filemode: '0640'              # mode for created log files
-  dirmode: '0755'               # mode for dirs created in log file paths
+  target: 192.168.100.1                   # omit if you do not want to forward logs
+                                          # NOTE: be careful using target and listen on
+                                          # the same server, you can cause a loop
+  listentcp: true                         # omit to disable listening on tcp port
+  listenudp: true                         # omit to disable listening on udp port
+  imkllog: true                           # omit to log kernel messages
+  logbasepath: /mnt/logs                  # base path for logs to be saved to
+                                          # also enables logging per host, per day
+  filemode: '0640'                        # mode for created log files
+  dirmode: '0755'                         # mode for dirs created in log file paths
 
-  custom:                       # put custom config files in /etc/rsyslog.d/
-    - 001_custom1.conf          # files must be reachable from path
-    - 002_custom2.conf          # salt://rsyslog/
-
+  custom:                                 # put custom config files in /etc/rsyslog.d/
+    - 001_custom1.conf                    # files must be reachable from path
+    - 002_custom2.conf                    # salt://rsyslog/
+    - salt://some_other/003_custom3.conf  # Or with an absolute path
