@@ -51,7 +51,11 @@ $Umask 0022
 $IncludeConfig /etc/rsyslog.d/*.conf
 
 {% if config.target|default(false) %}
+{% if config.protocol|default('udp') == 'tcp' %}
+*.* @@{{ config.target }}
+{% else %}
 *.* @{{ config.target }}
+{% endif %}
 {% endif %}
 
 {% if config.logbasepath|default(false) %}
