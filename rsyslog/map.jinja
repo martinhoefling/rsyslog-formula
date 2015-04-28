@@ -8,5 +8,7 @@
     'RedHat': {
         'package': 'rsyslog',
         'service': 'rsyslog',
+        'config': '/etc/rsyslog.conf',
+        'custom_config_path': '/etc/rsyslog.d',
     },
 }, merge=salt['pillar.get']('rsyslog:lookup')) %}
