@@ -2,6 +2,7 @@ rsyslog:
   target: 192.168.100.1                   # omit if you do not want to forward logs
                                           # NOTE: be careful using target and listen on
                                           # the same server, you can cause a loop
+  protocol: udp                           # protocol to use to send to target
   listentcp: true                         # omit to disable listening on tcp port
   listenudp: true                         # omit to disable listening on udp port
   imkllog: true                           # omit to log kernel messages
