@@ -2,6 +2,10 @@ rsyslog:
   target: 192.168.100.1                   # omit if you do not want to forward logs
                                           # NOTE: be careful using target and listen on
                                           # the same server, you can cause a loop
+  targets:                                # If you want to use more than one target,
+    - log1.example.com                    # you can specify targets as a list.
+    - log2.example.com                    # The single 'target' directive takes precendence over this however.
+
   protocol: udp                           # protocol to use to send to target
   listentcp: true                         # omit to disable listening on tcp port
   listenudp: true                         # omit to disable listening on udp port
