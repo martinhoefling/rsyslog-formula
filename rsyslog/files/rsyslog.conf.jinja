@@ -56,6 +56,18 @@ $IncludeConfig /etc/rsyslog.d/*.conf
 {% else %}
 *.* @{{ config.target }}
 {% endif %}
+{% else %}
+{% for target in config.get('targets', []) %}
+$ActionQueueType LinkedList
+$ActionQueueFileName {{ target }}
+$ActionResumeRetryCount -1
+$ActionQueueSaveOnShutdown on
+{% if config.protocol|default('udp') == 'tcp' %}
+*.* @@{{ target }}
+{% else %}
+*.* @{{ target }}
+{% endif %}
+{% endfor %}
 {% endif %}
 
 {% if config.logbasepath|default(false) %}
