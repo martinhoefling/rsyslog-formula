@@ -8,6 +8,7 @@ rsyslog:
 
   protocol: udp                           # protocol to use to send to target
   listentcp: true                         # omit to disable listening on tcp port
+  listentcpprt: 10514                     # specify tcp listen port ($InputTCPServerRun)
   listenudp: true                         # omit to disable listening on udp port
   imkllog: true                           # omit to log kernel messages
   logbasepath: /mnt/logs                  # base path for logs to be saved to
