@@ -18,9 +18,17 @@ config_{{ rsyslog.config }}:
   file.managed:
     - name: /etc/rsyslog.conf
     - template: jinja
-    - source: salt://rsyslog/files/rsyslog.conf.jinja
+    - source: salt://rsyslog/templates/rsyslog.conf.jinja
     - context:
       config: {{ salt['pillar.get']('rsyslog', {}) }}
+
+rsyslog_{{ rsyslog.workdirectory }}:
+  file.directory:
+    - name: {{ rsyslog.workdirectory }}
+    - user: {{ rsyslog.runuser }}
+    - group: {{ rsyslog.rungroup }}
+    - mode: 755
+    - makedirs: True
 
 {% for filename in salt['pillar.get']('rsyslog:custom', ["50-default.conf"]) %}
 {% set basename = filename.split('/')|last %}
