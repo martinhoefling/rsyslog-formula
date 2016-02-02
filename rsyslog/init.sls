@@ -1,26 +1,29 @@
 {% from "rsyslog/map.jinja" import rsyslog with context %}
 
-package_{{ rsyslog.package }}:
-  pkg:
+rsyslog:
+  pkg.installed:
     - name: {{ rsyslog.package }}
-    - installed
-
-service_{{ rsyslog.service }}:
-  service.running:
-    - name: {{ rsyslog.service }}
-    - enable: True
-    - require:
-      - pkg: package_{{ rsyslog.package }}
-    - watch:
-      - file: config_{{ rsyslog.config }}
-
-config_{{ rsyslog.config }}:
   file.managed:
-    - name: /etc/rsyslog.conf
+    - name: {{ rsyslog.config }}
     - template: jinja
-    - source: salt://rsyslog/files/rsyslog.conf.jinja
+    - source: salt://rsyslog/templates/rsyslog.conf.jinja
     - context:
       config: {{ salt['pillar.get']('rsyslog', {}) }}
+  service.running:
+    - enable: True
+    - name: {{ rsyslog.service }}
+    - require:
+      - pkg: {{ rsyslog.package }}
+    - watch: 
+      - file: {{ rsyslog.config }}
+
+workdirectory:
+  file.directory:
+    - name: {{ rsyslog.workdirectory }}
+    - user: {{ rsyslog.runuser }}
+    - group: {{ rsyslog.rungroup }}
+    - mode: 755
+    - makedirs: True
 
 {% for filename in salt['pillar.get']('rsyslog:custom', ["50-default.conf"]) %}
 {% set basename = filename.split('/')|last %}
