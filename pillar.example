@@ -11,7 +11,7 @@ rsyslog:
   listentcpprt: 10514                     # specify tcp listen port ($InputTCPServerRun)
   listenudp: true                         # omit to disable listening on udp port
   imkllog: true                           # omit to log kernel messages
-  imjourrnal: false                       # omit to log journal messages
+  imjournal: false                        # omit to log journal messages
   logbasepath: /mnt/logs                  # base path for logs to be saved to
                                           # also enables logging per host, per day
   fileowner: root                         # set the owner of the logfiles
