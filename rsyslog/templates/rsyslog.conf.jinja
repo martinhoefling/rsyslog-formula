@@ -42,7 +42,7 @@ $WorkDirectory {{ config.get('workdirectory', '/var/spool/rsyslog') }}
 # Use traditional timestamp format.
 # To enable high precision timestamps, comment out the following line.
 #
-$ActionFileDefaultTemplate RSYSLOG_TraditionalFileFormat
+$ActionFileDefaultTemplate {{ config.get('template', 'RSYSLOG_TraditionalFileFormat') }}
 
 #
 # Set the default permissions for all log files.
