@@ -18,6 +18,7 @@ rsyslog:
   filegroup: root                         # set the group of the logfiles
   filemode: '0640'                        # mode for created log files
   dirmode: '0755'                         # mode for dirs created in log file paths
+  template: 'RSYSLOG_FileFormat'          # file default template
 
   custom:                                 # Put custom config files in /etc/rsyslog.d/.
     - 001_custom1.conf                    # Files must be reachable from path `salt://rsyslog/`
