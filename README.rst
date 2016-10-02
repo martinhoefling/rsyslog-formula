@@ -21,5 +21,5 @@ Available states
 Install and configure the ``rsyslog`` package and enable the service. See the `pillar.example` file for configuration.
 
 Changelog
-================
+=========
 April 2015: the default rules were moved from `rsyslog.conf` to `50-default.conf`. This file will be loaded if the `rsyslog:custom` pillar isnt set. However, if your `rsyslog:custom` specifies other files to include, you must add the `50-default.conf` as well!
