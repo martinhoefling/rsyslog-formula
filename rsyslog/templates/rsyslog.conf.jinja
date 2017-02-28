@@ -44,6 +44,11 @@ $WorkDirectory {{ config.get('workdirectory', '/var/spool/rsyslog') }}
 #
 $ActionFileDefaultTemplate {{ config.get('template', 'RSYSLOG_TraditionalFileFormat') }}
 
+{% if config.repeated_msg_reduction|default(false) -%}
+# Filter duplicated messages
+$RepeatedMsgReduction {{config.get('repeated_msg_reduction', 'off') }}
+{%- endif %}
+
 #
 # Set the default permissions for all log files.
 #
@@ -52,6 +57,12 @@ $FileGroup {{ config.get('filegroup', 'adm') }}
 $FileCreateMode {{ config.get('filemode', '0640') }}
 $DirCreateMode {{ config.get('dirmode', '0755') }}
 $Umask 0022
+{% if config.priv_drop_to_user|default(false) -%}
+$PrivDropToUser {{ config.get('priv_drop_to_user', config.get('fileowner', 'root'))}}
+{%- endif %}
+{% if config.priv_drop_to_group|default(false) -%}
+$PrivDropToGroup {{ config.get('priv_drop_to_group', config.get('filegroup', 'adm'))}}
+{%- endif %}
 
 #
 # Include all config files in /etc/rsyslog.d/
