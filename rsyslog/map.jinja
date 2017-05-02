@@ -14,6 +14,7 @@ that differ from whats in defaults.yaml
       'workdirectory': '/var/lib/rsyslog',
     },
     'Arch': {},
+    'Suse': {},
   }, grain='os_family', merge=salt['pillar.get']('rsyslog:lookup')) 
 %}
 
