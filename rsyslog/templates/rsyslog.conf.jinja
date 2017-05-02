@@ -15,7 +15,12 @@ $ModLoad imklog   # provides kernel logging support (previously done by rklogd)
 {% if config.imjournal|default(false) -%}
 $ModLoad imjournal # provides access to the systemd journal
 {%- endif %}
+{% if config.immark|default(false) -%}
+$ModLoad immark  # provides --MARK-- message capability
+$MarkMessagePeriod   {{ config.markmessageperiod|default('3600') }}
+{%- else %}
 #$ModLoad immark  # provides --MARK-- message capability
+{%- endif %}
 
 {% if config.listenudp|default(false) -%}
 # provides UDP syslog reception

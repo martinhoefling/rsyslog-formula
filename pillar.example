@@ -12,6 +12,7 @@ rsyslog:
   listenudp: true                         # omit to disable listening on udp port
   imkllog: true                           # omit to log kernel messages
   imjournal: false                        # omit to log journal messages
+  markmessageperiod: 1200                 # Specifies when mark messages are written (seconds)
   logbasepath: /mnt/logs                  # base path for logs to be saved to
                                           # also enables logging per host, per day
   fileowner: root                         # set the owner of the logfiles
