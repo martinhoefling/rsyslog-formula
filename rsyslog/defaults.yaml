@@ -11,3 +11,4 @@ rsyslog:
   exclusive: True
   stoplist:
     - syslogd
+  custom_config_template: salt://rsyslog/templates/rsyslog.conf.jinja
