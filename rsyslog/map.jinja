@@ -13,6 +13,12 @@ that differ from whats in defaults.yaml
     'RedHat': {
       'workdirectory': '/var/lib/rsyslog',
     },
+    'FreeBSD': {
+        'service': 'rsyslogd',
+        'config': '/usr/local/etc/rsyslog.conf',
+        'custom_config_path': '/usr/local/etc/rsyslog.d',
+        'rungroup': 'wheel',
+    },
     'Arch': {},
     'Suse': {},
   }, grain='os_family', merge=salt['pillar.get']('rsyslog:lookup')) 
