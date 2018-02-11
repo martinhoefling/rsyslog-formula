@@ -1,5 +1,16 @@
 {% from "rsyslog/map.jinja" import rsyslog with context %}
 
+{% if rsyslog.exclusive %}
+{% for logger in rsyslog.stoplist %}
+stoplogger_{{logger}}:
+  service.dead:
+    - enable: False
+    - name: {{ logger }}
+    - require_in:
+      - service: {{ rsyslog.service }}
+{% endfor %}
+{% endif %}
+
 rsyslog:
   pkg.installed:
     - name: {{ rsyslog.package }}
