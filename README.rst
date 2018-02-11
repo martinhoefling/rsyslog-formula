@@ -5,6 +5,11 @@ Configures and starts rsyslog service. Currently the log file schema is based on
 control if rsyslog should listen for tcp / udp connections. Further ikml logging (kernel) logging can be disabled, e.g. for lxc containers.
 It supports both a client only (sending all logs to another machine) and a server side (receiving logs from mulitple other machines).
 
+It works on Redhat, Debian, FreeBSD, Suse and Arch OS families.
+
+In situations where there's already a default logger installed (e.g. a FreeBSD jail), an option exists to declare that rsyslog is the exclusive system logger.
+This provides a facility to add other loggers to a stoplist which helps, for example, to ensure that port 514 UDP is free for rsylog to use.
+
 .. note::
 
    Contributions are welcome.
