@@ -38,6 +38,10 @@ rsyslog_custom_{{basename}}:
     {% if filename.endswith('.jinja') %}
     - template: jinja
     {% endif %}
+    - user: {{ rsyslog.runuser }}
+    - group: {{ rsyslog.rungroup }}
+    - dirmode: 755
+    - makedirs: True
     - watch_in:
       - service: {{ rsyslog.service }}
 {% endfor %}
