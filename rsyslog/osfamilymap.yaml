@@ -1,0 +1,10 @@
+RedHat:
+  workdirectory: /var/spool/rsyslog
+FreeBSD:
+  service: rsyslogd
+  config: /usr/local/etc/rsyslog.conf
+  custom_config_path: /usr/local/etc/rsyslog.d
+  rungroup: wheel
+Gentoo:
+  rungroup: adm
+  package: app-admin/rsyslog
