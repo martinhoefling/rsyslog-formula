@@ -28,3 +28,12 @@ rsyslog:
                                           # The default is to include `salt://rsyslog/files/50-default.conf`.
                                           # If you change the custom conf dict, make sure to
                                           # include the 50-default.conf as well if needed.
+
+  modules:                                # Install additional rsyslog module packages
+    - gnutls                              # Currently supported are these modules, which are present in
+    - elasticsearch                       # Debian and CentOS.
+    - gssapi
+    - kafka
+    - mysql
+    - pgsql
+    - relp

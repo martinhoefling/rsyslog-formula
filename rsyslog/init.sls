@@ -56,3 +56,11 @@ rsyslog_custom_{{basename}}:
     - watch_in:
       - service: {{ rsyslog.service }}
 {% endfor %}
+
+{% if 'modules' in rsyslog %}
+{% for module in rsyslog.modules %}
+rsyslog-{{ module }}:
+  pkg.installed:
+    - name: {{ rsyslog.module_packages.get(module) }}
+{% endfor %}
+{% endif %}

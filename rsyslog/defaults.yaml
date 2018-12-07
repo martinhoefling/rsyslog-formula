@@ -2,6 +2,14 @@
 # vim: ft=yaml
 rsyslog:
   package: rsyslog
+  module_packages:
+    gnutls: rsyslog-gnutls
+    elasticsearch: rsyslog-elasticsearch
+    gssapi: rsyslog-gssapi
+    kafka: rsyslog-kafka
+    mysql: rsyslog-mysql
+    pgsql: rsyslog-pgsql
+    relp: rsyslog-relp
   service: rsyslog
   runuser: root
   rungroup: root
