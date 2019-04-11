@@ -11,7 +11,7 @@
 {% if config.impstats|default(false) -%}
 # Enable impstats.This module MUST be loaded right at the top of rsyslog.conf, otherwise stats may not get turned on in all places.
 module(
-        load=impstats   # provides impstats
+        load=impstats
         interval={{ config.impstatsinterval|default('600') }}
         severity={{ config.impstatsseverity|default('6') }}
         resetCounters={{ config.impstatsresetcounters|default('off') }}
