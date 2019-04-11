@@ -17,7 +17,6 @@ rsyslog:
   impstatslogsyslog: on                   # This is a boolean setting specifying if data should be sent to the usual syslog stream
   impstatsformat: legacy                  # Impstats format. Legacy is default but other options can be used.
   impstatssyslogrule: 'syslog.=debug /var/log/rsyslog-stats'   # Impstats log rule.
-
   imkllog: true                           # omit to log kernel messages
   imjournal: false                        # omit to log journal messages
   immark: false                           # enable/disable mark messages support
