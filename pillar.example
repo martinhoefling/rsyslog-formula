@@ -13,8 +13,8 @@ rsyslog:
   impstats: false                         # impstats set to true to enable impstats
   impstatsinterval: 600                   # impstats interval to gather stats
   impstatsseverity: 6                     # The numerical syslog severity code to be used for generated messages. Default is 6(info)
-  impstatsresetcounters: on               # When set to “on”, counters are automatically reset after they are emitted
-  impstatslogsyslog: on                   # This is a boolean setting specifying if data should be sent to the usual syslog stream
+  impstatsresetcounters: 'on'             # When set to “on”, counters are automatically reset after they are emitted
+  impstatslogsyslog: 'on'                 # This is a boolean setting specifying if data should be sent to the usual syslog stream
   impstatsformat: legacy                  # Impstats format. Legacy is default but other options can be used.
   impstatssyslogrule: 'syslog.=debug /var/log/rsyslog-stats'   # Impstats log rule.
   imkllog: true                           # omit to log kernel messages
