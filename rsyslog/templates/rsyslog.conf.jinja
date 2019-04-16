@@ -8,6 +8,20 @@
 #### MODULES ####
 #################
 
+{% if config.impstats|default(false) -%}
+# Enable impstats.This module MUST be loaded right at the top of rsyslog.conf, otherwise stats may not get turned on in all places.
+module(
+        load=impstats
+        interval={{ config.impstatsinterval|default('600') }}
+        severity={{ config.impstatsseverity|default('6') }}
+        resetCounters={{ config.impstatsresetcounters|default('off') }}
+        log.syslog={{ config.impstatslogsyslog|default('on') }}
+        format={{ config.impstatsformat|default('legacy') }}
+)
+{% if config.impstatslogsyslog|default('off') == 'on' %}
+{{ config.impstatssyslogrule|default('syslog.=debug /var/log/rsyslog-stats') }}
+{%- endif %}
+{%- endif %}
 $ModLoad imuxsock # provides support for local system logging
 {% if config.imkllog|default(true) -%}
 $ModLoad imklog   # provides kernel logging support (previously done by rklogd)
@@ -15,7 +29,12 @@ $ModLoad imklog   # provides kernel logging support (previously done by rklogd)
 {% if config.imjournal|default(false) -%}
 $ModLoad imjournal # provides access to the systemd journal
 {%- endif %}
+{% if config.immark|default(false) -%}
+$ModLoad immark  # provides --MARK-- message capability
+$MarkMessagePeriod   {{ config.markmessageperiod|default('3600') }}
+{%- else %}
 #$ModLoad immark  # provides --MARK-- message capability
+{%- endif %}
 
 {% if config.listenudp|default(false) -%}
 # provides UDP syslog reception
@@ -44,6 +63,11 @@ $WorkDirectory {{ config.get('workdirectory', '/var/spool/rsyslog') }}
 #
 $ActionFileDefaultTemplate {{ config.get('template', 'RSYSLOG_TraditionalFileFormat') }}
 
+{% if config.repeated_msg_reduction|default(false) -%}
+# Filter duplicated messages
+$RepeatedMsgReduction {{config.get('repeated_msg_reduction', 'off') }}
+{%- endif %}
+
 #
 # Set the default permissions for all log files.
 #
@@ -52,6 +76,12 @@ $FileGroup {{ config.get('filegroup', 'adm') }}
 $FileCreateMode {{ config.get('filemode', '0640') }}
 $DirCreateMode {{ config.get('dirmode', '0755') }}
 $Umask 0022
+{% if config.priv_drop_to_user|default(false) -%}
+$PrivDropToUser {{ config.get('priv_drop_to_user', config.get('fileowner', 'root'))}}
+{%- endif %}
+{% if config.priv_drop_to_group|default(false) -%}
+$PrivDropToGroup {{ config.get('priv_drop_to_group', config.get('filegroup', 'adm'))}}
+{%- endif %}
 
 #
 # Include all config files in /etc/rsyslog.d/

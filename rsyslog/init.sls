@@ -1,12 +1,23 @@
 {% from "rsyslog/map.jinja" import rsyslog with context %}
 
+{% if rsyslog.exclusive %}
+{% for logger in rsyslog.stoplist %}
+stoplogger_{{logger}}:
+  service.dead:
+    - enable: False
+    - name: {{ logger }}
+    - require_in:
+      - service: {{ rsyslog.service }}
+{% endfor %}
+{% endif %}
+
 rsyslog:
   pkg.installed:
     - name: {{ rsyslog.package }}
   file.managed:
     - name: {{ rsyslog.config }}
     - template: jinja
-    - source: salt://rsyslog/templates/rsyslog.conf.jinja
+    - source: {{ rsyslog.custom_config_template }}
     - context:
       config: {{ salt['pillar.get']('rsyslog', {}) }}
   service.running:
@@ -38,6 +49,18 @@ rsyslog_custom_{{basename}}:
     {% if filename.endswith('.jinja') %}
     - template: jinja
     {% endif %}
+    - user: {{ rsyslog.runuser }}
+    - group: {{ rsyslog.rungroup }}
+    - dirmode: 755
+    - makedirs: True
     - watch_in:
       - service: {{ rsyslog.service }}
 {% endfor %}
+
+{% if 'modules' in rsyslog %}
+{% for module in rsyslog.modules %}
+rsyslog-{{ module }}:
+  pkg.installed:
+    - name: {{ rsyslog.module_packages.get(module) }}
+{% endfor %}
+{% endif %}

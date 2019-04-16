@@ -2,9 +2,21 @@
 # vim: ft=yaml
 rsyslog:
   package: rsyslog
+  module_packages:
+    gnutls: rsyslog-gnutls
+    elasticsearch: rsyslog-elasticsearch
+    gssapi: rsyslog-gssapi
+    kafka: rsyslog-kafka
+    mysql: rsyslog-mysql
+    pgsql: rsyslog-pgsql
+    relp: rsyslog-relp
   service: rsyslog
   runuser: root
   rungroup: root
   config: /etc/rsyslog.conf
   workdirectory: /var/spool/rsyslog
   custom_config_path: /etc/rsyslog.d
+  exclusive: True
+  stoplist:
+    - syslogd
+  custom_config_template: salt://rsyslog/templates/rsyslog.conf.jinja
